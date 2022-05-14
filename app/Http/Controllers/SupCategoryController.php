@@ -10,6 +10,9 @@ use App\Models\SupCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
+use Carbon\Carbon;
+use DateTime;
+use Illuminate\Support\Facades\Storage;
 
 class SupCategoryController extends Controller
 {
@@ -68,6 +71,8 @@ class SupCategoryController extends Controller
             'category_id'=>'required|numeric|exists:categories,id',
             'name' => 'required|string|min:3',
             'active'=> 'required | boolean',
+            'image' => 'required|image|mimes:png,jpg,jpeg',
+
           
         ]);
 
@@ -76,6 +81,13 @@ class SupCategoryController extends Controller
             $sup_category->name = $request->input('name');
             $sup_category->active = $request->input('active');
             $sup_category->category_id = $request->input('category_id');
+            if ($request->hasFile('image')) {
+             
+                $file = $request->file('image');
+                $imagetitle =  time().'_sup_category_image.' . $file->getClientOriginalExtension();
+                $status = $request->file('image')->storePubliclyAs('images/supcategories', $imagetitle);
+                $imagePath = 'images/supcategories/' . $imagetitle;
+                $sup_category->image = $imagePath;}
 
 
           

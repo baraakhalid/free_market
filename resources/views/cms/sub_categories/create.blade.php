@@ -39,18 +39,13 @@
                                     @endforeach
                                 </select>
                             </div>
-                             <div class="form-group">
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="active" name="active">
-                                    <label class="custom-control-label" for="active">{{__('cms.active')}}</label>
-                                </div>
-                            </div>
+                         
                         
                             {{-- <div class="form-group">
                                 <label for="description">{{__('cms.description')}}</label>
                                 <input type="text" class="form-control" id="description" placeholder="{{__('cms.description')}}">
                             </div> --}}
-                            {{-- <div class="form-group">
+                            <div class="form-group">
                                 <label for="sup_category_image">sup_category Image</label>
                                 <div class="input-group">
                                     <div class="custom-file">
@@ -59,7 +54,13 @@
                                     </div>
                                 
                                 </div>
-                            </div> --}}
+                            </div>
+                            <div class="form-group">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="active" name="active">
+                                    <label class="custom-control-label" for="active">{{__('cms.active')}}</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                         <!-- /.card-body -->
@@ -81,47 +82,30 @@
 
 @section('scripts')
 <script src="{{asset('cms/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
-{{-- <script src="{{asset('js/axios.js')}}"></script> --}}
-{{-- <script>
-    $(function () { bsCustomFileInput.init() });
-</script> --}}
 <script>
-     function performStore() {
-       
-       axios.post('/cms/admin/sup_categories', {
-           name: document.getElementById('name').value,
-           active: document.getElementById('active').checked,
-           category_id: document.getElementById('category_id').value,
+    $(function () { bsCustomFileInput.init() });
+</script>
+<script>
 
+    function performStore() {
+        var formData = new FormData();
+        formData.append('name', document.getElementById('name').value);
+        formData.append('active', document.getElementById('active').checked ? 1:0);
 
+        formData.append('category_id', document.getElementById('category_id').value);
 
-       })
-       .then(function (response) {
-           console.log(response);
-           toastr.success(response.data.message);
-           document.getElementById('create-form').reset();
-       })
-       .catch(function (error) {
-           console.log(error.response);
-           toastr.error(error.response.data.message);
-       });
-   }
-    // function performStore() {
-    //     var formData = new FormData();
-    //     formData.append('name', document.getElementById('name').value);
-    //     formData.append('description', document.getElementById('description').value);
-    //     formData.append('image',document.getElementById('sup_category_image').files[0]);
+        formData.append('image',document.getElementById('sup_category_image').files[0]);
 
-    //     axios.post('/cms/admin/categories',formData)
-    //     .then(function (response) {
-    //         console.log(response);
-    //         toastr.success(response.data.message);
-    //         document.getElementById('create-sup_category').reset();
-    //     })
-    //     .catch(function (error) {
-    //         console.log(error.response);
-    //         toastr.error(error.response.data.message);
-    //     });
-    // }
+        axios.post('/cms/admin/sup_categories',formData)
+        .then(function (response) {
+            console.log(response);
+            toastr.success(response.data.message);
+            document.getElementById('create-sup_category').reset();
+        })
+        .catch(function (error) {
+            console.log(error.response);
+            toastr.error(error.response.data.message);
+        });
+    }
 </script>
 @endsection

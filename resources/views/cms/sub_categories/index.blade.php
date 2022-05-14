@@ -24,7 +24,7 @@
                             <thead>
                                 <tr>
                                     <th style="width: 10px">#</th>
-                                    {{-- <th>{{__('cms.image')}}</th> --}}
+                                    <th>{{__('cms.image')}}</th>
                                     <th>{{__('cms.name')}}</th>
                                     <th>{{__('cms.category')}}</th>
                                     <th>{{__('cms.products')}}</th>
@@ -42,9 +42,9 @@
                                 @foreach ($sup_categories as $sup_category)
                                 <tr>
                                     <td>{{$loop->index+1}}</td>
-                                    {{-- <td>
-                                        <img height="80" src="{{Storage::url($supcategory->image)}}" />
-                                    </td> --}}
+                                    <td>
+                                        <img height="80" src="{{Storage::url( $sup_category->image)}}" />
+                                    </td>
                                     <td>{{$sup_category->name}}</td>
                                     {{-- <td>{{$sup_category->category->name}}</td> --}}
                                     <td><span class="badge bg-info">{{$sup_category->category->name}}</span>

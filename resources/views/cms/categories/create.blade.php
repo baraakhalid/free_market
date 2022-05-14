@@ -30,6 +30,16 @@
                             <div class="form-group">
                                 <label for="name">{{__('cms.name')}}</label>
                                 <input type="text" class="form-control" id="name" placeholder="{{__('cms.name')}}">
+                                <div class="form-group">
+                                <label for="category_image">category Image</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="category_image">
+                                        <label class="custom-file-label" for="category_image">Choose file</label>
+                                    </div>
+                                
+                                </div>
+                            </div>
                             </div>
                              <div class="form-group">
                                 <div class="custom-control custom-switch">
@@ -41,16 +51,7 @@
                                 <label for="description">{{__('cms.description')}}</label>
                                 <input type="text" class="form-control" id="description" placeholder="{{__('cms.description')}}">
                             </div> --}}
-                            {{-- <div class="form-group">
-                                <label for="category_image">category Image</label>
-                                <div class="input-group">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="category_image">
-                                        <label class="custom-file-label" for="category_image">Choose file</label>
-                                    </div>
-                                
-                                </div>
-                            </div> --}}
+                        
                         </div>
                     </div>
                         <!-- /.card-body -->
@@ -72,23 +73,19 @@
 
 @section('scripts')
 <script src="{{asset('cms/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
-{{-- <script src="{{asset('js/axios.js')}}"></script> --}}
-{{-- <script>
+{{-- <script src="{{asset('js/axios.js')}}"></script>  --}}
+ <script>
     $(function () { bsCustomFileInput.init() });
-</script> --}}
+</script> 
 <script>
-     function performStore() {
-       
-       axios.post('/cms/admin/categories', {
-           name: document.getElementById('name').value,
-           active: document.getElementById('active').checked,
 
-        //    mobile: document.getElementById('mobile').value,
-        //    email: document.getElementById('email').value,
+   function performStore() {
+        var formData = new FormData();
+        formData.append('name', document.getElementById('name').value);
+        formData.append('active', document.getElementById('active').checked ? 1:0);
+        formData.append('image',document.getElementById('category_image').files[0]);
 
-
-           // role_id: document.getElementById('role_id').value,
-       })
+       axios.post('/cms/admin/categories', formData)         
        .then(function (response) {
            console.log(response);
            toastr.success(response.data.message);
@@ -97,24 +94,6 @@
        .catch(function (error) {
            console.log(error.response);
            toastr.error(error.response.data.message);
-       });
-   }
-    // function performStore() {
-    //     var formData = new FormData();
-    //     formData.append('name', document.getElementById('name').value);
-    //     formData.append('description', document.getElementById('description').value);
-    //     formData.append('image',document.getElementById('category_image').files[0]);
-
-    //     axios.post('/cms/admin/categories',formData)
-    //     .then(function (response) {
-    //         console.log(response);
-    //         toastr.success(response.data.message);
-    //         document.getElementById('create-category').reset();
-    //     })
-    //     .catch(function (error) {
-    //         console.log(error.response);
-    //         toastr.error(error.response.data.message);
-    //     });
-    // }
+       });}
 </script>
 @endsection

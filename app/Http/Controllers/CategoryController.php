@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 
 
+
 class CategoryController extends Controller
 {
     /**
@@ -60,6 +61,8 @@ class CategoryController extends Controller
         $validator = Validator($request->all(), [
             'name' => 'required|string|min:3',
             'active'=> 'required | boolean',
+            'image' => 'required|image|mimes:png,jpg,jpeg',
+
           
         ]);
 
@@ -67,6 +70,15 @@ class CategoryController extends Controller
             $category = new Category();
             $category->name = $request->input('name');
             $category->active = $request->input('active');
+            if ($request->hasFile('image')) {
+             
+                $file = $request->file('image');
+                $imagetitle =  time().'_category_image.' . $file->getClientOriginalExtension();
+                $status = $request->file('image')->storePubliclyAs('images/categories', $imagetitle);
+                $imagePath = 'images/categories/' . $imagetitle;
+                $category->image = $imagePath;
+
+            }
 
           
             $isSaved = $category->save();

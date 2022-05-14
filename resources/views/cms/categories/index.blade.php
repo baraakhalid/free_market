@@ -24,7 +24,7 @@
                             <thead>
                                 <tr>
                                     <th style="width: 10px">#</th>
-                                    {{-- <th>{{__('cms.image')}}</th> --}}
+                                    <th>{{__('cms.image')}}</th>
                                     <th>{{__('cms.name')}}</th>
                                     <th>{{__('cms.subcategories')}}</th>
 
@@ -41,6 +41,9 @@
                                 @foreach ($categories as $category)
                                 <tr>
                                     <td>{{$loop->index+1}}</td>
+                                    <td>
+                                        <img height="80" src="{{Storage::url($category->image ?? '')}}" />
+                                    </td>
                                  
                                     <td>{{$category->name}}</td>
                                     {{-- <td>{{$category->supcategories_count}}</td> --}}
