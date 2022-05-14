@@ -2,8 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Favorite;
+use App\Models\Product;
+use App\Models\User;
+
+
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+
 
 class FavoriteController extends Controller
 {
@@ -12,9 +19,15 @@ class FavoriteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+      $categories=Category::all();
+    //    $favorites = $request->user()->products;
+       $latestproducts=Product::orderby('created_at','ASC')->take(3)->get();
+
+    $favorites=$request->user()->products;
+     
+    return response()->view('front.favorites',['favorites'=>$favorites ,'categories'=>$categories,'latestproducts'=> $latestproducts]);
     }
 
     /**
@@ -35,7 +48,41 @@ class FavoriteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator($request->all(), [
+            'product_id' => 'required|numeric|exists:products,id'
+                   
+        ]);
+        if (!$validator->fails()) {
+            $product = Product::find($request->product_id);
+            if(!is_null($product)) {
+                if(! $request->user()->favorites()->where('product_id' , $product->id)->exists()){
+                    $isSaved = $request->user()->products()->save($product);
+                      if( $isSaved)
+                      return response()->json(
+                        ['message' =>  'Product added to favorite']);
+                    
+                }
+                    else{
+                        $isSaved = $request->user()->products()->detach($product);
+                        if( $isSaved)
+                        return response()->json(
+                            ['message' => 'Product deleted from favorite ']);
+                    }
+           
+                   
+               }
+                else{
+                    return response()->json(
+                        ['message' => 'Product not found ']);
+                }
+            
+        }
+        else{
+            return response()->json(
+                ['message' => $validator->getMessageBag()->first()],
+                Response::HTTP_BAD_REQUEST,
+            );
+        }
     }
 
     /**

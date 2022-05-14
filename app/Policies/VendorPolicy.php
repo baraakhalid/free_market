@@ -18,7 +18,7 @@ class VendorPolicy
      */
     public function viewAny(Admin $admin)
     {
-        return $admin->hasPermissionTo('Read-Vendors')
+        return $admin->hasPermissionTo('Read-vendors')
         ? $this->allow()
         : $this->deny();
     }
@@ -43,7 +43,7 @@ class VendorPolicy
      */
     public function create(Admin $admin)
     {
-        return $admin->hasPermissionTo('Create-Vendor')
+        return $admin->hasPermissionTo('Create-vendor')
         ? $this->allow()
         : $this->deny('YOU HAVE NO PERMISSION FOR THIS ACTION');
     }
@@ -57,7 +57,7 @@ class VendorPolicy
      */
     public function update(Admin $admin, Vendor $vendor)
     {
-        return $admin->hasPermissionTo('Update-Vendor')
+        return $admin->hasPermissionTo('Update-vendor')
         ? $this->allow()
         : $this->deny('YOU HAVE NO PERMISSION FOR THIS ACTION');
     }
@@ -71,7 +71,7 @@ class VendorPolicy
      */
     public function delete(Admin $admin, Vendor $vendor)
     {
-        return $admin->hasPermissionTo('Delete-Vendor')
+        return $admin->hasPermissionTo('Delete-vendor')
             ? $this->allow()
             : $this->deny('YOU HAVE NO PERMISSION FOR THIS ACTION');
     }

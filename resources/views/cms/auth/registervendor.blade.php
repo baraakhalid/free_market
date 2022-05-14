@@ -3,7 +3,7 @@
 <head>
     <style>
         body{
-            background-image: url({{asset('authregister/images/baraa.jpg')}});
+            background-image: url({{asset('authregister/images/image3.jpg')}});
             
         }
     </style>
@@ -68,7 +68,7 @@
                     </div>
                     </form>
                     <p class="loginhere">
-                        Have already an account ? <a href="#" class="loginhere-link">Login here</a>
+                        Have already an account ? <a href="{{route('cms.login','vendor')}}"class="loginhere-link">Login here</a>
                     </p>
                 </div>
             </div>
@@ -81,7 +81,7 @@
     <script src="{{asset('authregister/js/main.js')}}"></script>
     <script>
         function performStore() {
-            axios.post('/front/resturant', {
+            axios.post('/cms/user/vendor', {
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
                 mobile: document.getElementById('mobile').value,
@@ -92,6 +92,8 @@
             .then(function (response) {
                 console.log(response);
                 toastr.success(response.data.message);
+                window.location.href = '/cms/vendor/login';
+
                 document.getElementById('create-form').reset();
             })
             .catch(function (error) {

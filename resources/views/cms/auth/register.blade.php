@@ -3,7 +3,7 @@
 <head>
     <style>
         body{
-            background-image: url({{asset('authregister/images/baraa.jpg')}});
+            background-image: url({{asset('authregister/images/image3.jpg')}});
             
         }
     </style>
@@ -90,13 +90,12 @@
     <script>
         function performStore() {
          
-            axios.post('/front/users', {
+            axios.post('/cms/user/user', {
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
                 mobile: document.getElementById('mobile').value,
                 gender: document.getElementById('gender').value,
                 password: document.getElementById('password').value,
-                // role_id: document.getElementById('role_id').value,
             })
             .then(function (response) {
                 console.log(response);

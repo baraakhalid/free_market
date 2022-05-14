@@ -14,4 +14,18 @@ class Product extends Model
     public function supcategory(){
         return $this->belongsto(SupCategory::class ,'sup_category_id','id');
     }
+    public function users()
+    {
+        return $this->belongsToMany(User::class, Favorite::class,'product_id','user_id');
+    }
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class ,'product_id','id');
+    }
+    public function getIsFavoriteAttribute(){
+        if(auth('user')->check()){
+            return $this->favorites()->where('user_id',auth('user')->id())->exists();
+        }
+        return false;
+    }
 }

@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 // use App\Models\Sup_Category;
 
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\SupCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class SupCategoryController extends Controller
@@ -16,10 +18,29 @@ class SupCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function __construct()
     {
+        $this->authorizeResource(SupCategory::class,'supcategory'
+        , ['except' => [ 'index']]);
+
+  
+    }
+    public function index(Request $request)
+    { 
+
+        if (Auth::guard('admin')->check()||Auth::guard('vendor')->check()){
+
         $sup_categories = SupCategory::with('category')->withcount('products')->get();
-        return response()->view('cms.sub_categories.index', ['sup_categories' => $sup_categories]);
+        return response()->view('cms.sub_categories.index', ['sup_categories' => $sup_categories]);}
+        else{
+            $sup_categories = SupCategory::withcount('products')->get();
+            if($request->has('category_id')){
+                $sup_categories =SupCategory::withcount('products')->where('category_id','=',$request->input('category_id'))->get();}
+                $categories = Category::all();
+                $latestproducts=Product::orderby('created_at','ASC')->take(3)->get();
+
+
+        return response()->view('front.supcategories', ['sup_categories' => $sup_categories,'categories'=>$categories ,'latestproducts'=> $latestproducts]);}
     }
 
     /**
@@ -58,9 +79,9 @@ class SupCategoryController extends Controller
 
 
           
-            // $isSaved = $sup_category->save();
-            $category=Category::fideOrFail($request->input('category_id'));
-            $isSaved = $category->supcategories()->save($sup_category);
+            $isSaved = $sup_category->save();
+            // $category=Category::fideOrFail($request->input('category_id'));
+            // $isSaved = $category->supcategories()->save($sup_category);
 
             return response()->json(
                 ['message' => $isSaved ? 'Saved successfully' : 'Save failed!'],

@@ -66,7 +66,7 @@
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                           @endcan
-                                          @can('Delete-vedor')
+                                          @can('Delete-vendor')
 
                                             <a href="#" onclick="confirmDelete('{{$vendor->id}}', this)"
                                                 class="btn btn-danger">

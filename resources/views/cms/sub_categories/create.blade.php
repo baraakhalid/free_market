@@ -95,8 +95,6 @@
 
 
 
-
-           // role_id: document.getElementById('role_id').value,
        })
        .then(function (response) {
            console.log(response);

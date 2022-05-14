@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Support\Facades\Storage;
@@ -19,12 +22,21 @@ class CategoryController extends Controller
      */
     public function __construct()
     {
-        $this->authorizeResource(Category::class,'category');
+        $this->authorizeResource(Category::class, 'category'
+        , ['except' => [ 'index']]);
     }
     public function index()
      {
-         $categories = Category::withcount('supcategories')->get();
+        $categories = Category::withcount('supcategories')->get();
+        if (Auth::guard('admin')->check() ||Auth::guard('vendor')->check() )
          return response()->view('cms.categories.index', ['categories' => $categories]);
+    
+
+    else
+    $latestproducts=Product::orderby('created_at','ASC')->take(3)->get();
+
+        return response()->view('front.categories', ['categories' => $categories ,'latestproducts' =>$latestproducts]);
+        
     }
 
     /**

@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\VendorWelcomeEmail;
+use App\Models\Admin;
 use App\Models\Vendor;
 use App\Models\City;
+use App\Notifications\NewVendorNotification;
 use Spatie\Permission\Models\Permission;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Symfony\Component\HttpFoundation\Response;
 
 
@@ -18,10 +22,10 @@ class VendorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function __construct()
-    // {
-    //      $this->authorizeResource(Vendor::class, 'vendor');
-    // }
+    public function __construct()
+    {
+         $this->authorizeResource(Vendor::class, 'vendor', ['except' => [ 'store']]);
+    }
     public function index()
     {
         $vendors = Vendor::withcount('permissions')->get();
@@ -105,20 +109,22 @@ class VendorController extends Controller
         ]);
 
         if (!$validator->fails()) {
-            $Vendor = new Vendor();
-            $Vendor->name = $request->input('name');
-            $Vendor->mobile = $request->input('mobile');
-            $Vendor->telephone = $request->input('telephone');
-            $Vendor->city_id = $request->input('city_id');
-            $Vendor->address = $request->input('address');
-            $Vendor->password = Hash::make('12345');
-            $Vendor->email = $request->input('email');
+            $vendor = new Vendor();
+            $vendor->name = $request->input('name');
+            $vendor->mobile = $request->input('mobile');
+            $vendor->telephone = $request->input('telephone');
+            $vendor->city_id = $request->input('city_id');
+            $vendor->address = $request->input('address');
+            $vendor->password = Hash::make('12345');
+            $vendor->email = $request->input('email');
 
-           
 
-            // $Vendor->password = hash::make(12345);
-
-            $isSaved = $Vendor->save();
+            $isSaved = $vendor->save();
+            if ($isSaved) {
+                Mail::to($vendor)->send(new VendorWelcomeEmail($vendor));
+                $admin = Admin::first();
+                $admin->notify(new NewVendorNotification($vendor));
+            }
             return response()->json(
                 ['message' => $isSaved ? 'Saved successfully' : 'Save failed!'],
                 $isSaved ? Response::HTTP_CREATED : Response::HTTP_BAD_REQUEST

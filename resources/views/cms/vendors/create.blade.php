@@ -18,7 +18,7 @@
                 <!-- general form elements -->
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">{{__('cms.create_admin')}}</h3>
+                        <h3 class="card-title">{{__('cms.create_vendor')}}</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->

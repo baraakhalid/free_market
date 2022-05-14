@@ -123,16 +123,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">15</span>
+          <span class="badge badge-warning navbar-badge">{{auth()->user()->unReadNotifications()->count()}}</span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-header">15 Notifications</span>
+          <span class="dropdown-header">{{auth()->user()->notifications()->count()}} Notifications</span>
           <div class="dropdown-divider"></div>
+          @foreach (auth()->user()->notifications as $notification)
+
           <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
+            <i class="fas fa-envelope mr-2"></i>  {{$notification->data['title']}}
+            <span class="float-right text-muted text-sm">{{$notification->created_at->diffForHumans()}}</span>
           </a>
           <div class="dropdown-divider"></div>
+          @endforeach
+{{-- 
           <a href="#" class="dropdown-item">
             <i class="fas fa-users mr-2"></i> 8 friend requests
             <span class="float-right text-muted text-sm">12 hours</span>
@@ -142,8 +146,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <i class="fas fa-file mr-2"></i> 3 new reports
             <span class="float-right text-muted text-sm">2 days</span>
           </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+          <div class="dropdown-divider"></div> --}}
+          <a href="{{route('notifications.index')}}" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
       </li>
       <li class="nav-item">
@@ -205,7 +209,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            @canany(['Create-Admin','Create-Vendor','Create-User','Read-Vendors','Read-Users','Read-Admins'])
+            @canany(['Create-Admin','Create-vendor','Create-User','Read-vendors','Read-Users','Read-Admins'])
 
             <ul class="nav nav-treeview">
 
@@ -452,12 +456,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
             @endcanany
 
             <li class="nav-header">{{__('cms.settings')}}</li>
-            {{-- <li class="nav-item">
+            <li class="nav-item">
               <a href="{{route('password.edit')}}" class="nav-link">
                 <i class="nav-icon far fa-circle text-danger"></i>
                 <p class="text">{{__('cms.edit_password')}}</p>
               </a>
-            </li> --}}
+            </li>
             <li class="nav-item">
               <a href="{{route('cms.logout')}}" class="nav-link">
                 <i class="nav-icon far fa-circle text-danger"></i>

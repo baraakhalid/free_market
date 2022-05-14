@@ -2321,7 +2321,7 @@ textarea.form-control {
 .btn {
   display: inline-block;
   font-weight: 400;
-  color: #6F6F6F;
+  /* color: #6F6F6F; */
   text-align: center;
   vertical-align: middle;
   user-select: none;
@@ -9263,9 +9263,9 @@ button.bg-dark:focus {
   color: #fff !important;
 }
 
-.text-primary {
+/* .text-primary {
   color: #D19C97 !important;
-}
+} */
 
 a.text-primary:hover, a.text-primary:focus {
   color: #ba6a62 !important;

@@ -24,22 +24,36 @@ class ProductController extends Controller
      */
     public function __construct()
     {
-        $this->authorizeResource(Product::class , 'product');
+        $this->authorizeResource(Product::class , 'product', ['except' => [ 'index']]);
     }
     public function index(Request $request)
     {
  
         if(auth('admin')->check()){
             $products = Product::all();
+            return response()->view('cms.products.index', ['products' => $products]);    
+
+
+        }
+        elseif(auth('vendor')->check()){
+            $products=$request->user()->products;
+            //  $products=Product::where('vendor_id' ,'=' ,$request->user()->id)->get();
+
+            return response()->view('cms.products.index', ['products' => $products]);    
 
         }
         else{
-            $products=$request->user()->products;
-            // $products=Product::where('vendor_id' ,'=' ,$request->user()->id)->get();
 
+            $products = Product::all();
+            $categories = Category::all();
+            $latestproducts=Product::orderby('created_at','ASC')->take(3)->get();
+
+
+            if($request->has('sup_category_id')){
+                $products =Product::where('sup_category_id','=',$request->input('sup_category_id'))->get();}
+            return response()->view('front.products', ['products' => $products,'categories'=>$categories ,'latestproducts'=> $latestproducts]);   
         }
-
-        return response()->view('cms.products.index', ['products' => $products]);    
+    
     }
 
     /**
@@ -90,13 +104,14 @@ class ProductController extends Controller
                 // $file = $request->file('image');
                 // $imageName = Carbon::now() . '_product_image.' . $file->getClientOriginalExtension();
                 // $request->file('image')->storePubliclyAs('images/products', $imageName);
-                // $imagePath = 'images/users/' . $imageName;
+                // $imagePath = 'images/products/' . $imageName;
                 // $product->image = $imagePath;
                 $file = $request->file('image');
                 $imagetitle =  time().'_product_image.' . $file->getClientOriginalExtension();
                 $status = $request->file('image')->storePubliclyAs('images/products', $imagetitle);
                 $imagePath = 'images/products/' . $imagetitle;
                 $product->image = $imagePath;
+
             }
 
 

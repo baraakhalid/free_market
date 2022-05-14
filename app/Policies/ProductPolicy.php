@@ -20,9 +20,9 @@ class ProductPolicy
      */
     public function viewAny($user)
     {
-        return $user->hasPermissionTo('Read-Products')
-        ? $this->allow()
-        : $this->deny('YOU HAVE NO PERMISSION FOR THIS ACTION');
+        // return $user->hasPermissionTo('Read-Products')
+        // ? $this->allow()
+        // : $this->deny('YOU HAVE NO PERMISSION FOR THIS ACTION');
     }
 
     /**
