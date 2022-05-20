@@ -28,4 +28,12 @@ class Product extends Model
         }
         return false;
     }
+    public function userscart()
+    {
+        return $this->belongsToMany(User::class, Cart::class, 'product_id', 'user_id');
+    }
+    public function carts()
+    {
+        return $this->hasMany(Cart::class, 'product_id', 'id');
+    }
 }

@@ -7,9 +7,9 @@
                 @foreach ($sup_categories as $sup_category)
                 <div class="col-lg-4 col-md-6 pb-1">
                     <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                        <p class="text-right">{{$sup_category->products_count}}</p>
+                        <p class="text-right">{{$sup_category->products_count.' '. 'products'}}</p>
                         <a href="{{route('front.products',['sup_category_id'=>$sup_category->id])}}" class="cat-img position-relative overflow-hidden mb-3">
-                            <img class="img-fluid" src="{{asset('front/img/cat-1.jpg')}}" alt="">
+                            <img class="img-fluid" src="{{Storage::url($sup_category->image ?? '')}}" alt="">
                         </a>
                         <h5 class="font-weight-semi-bold m-0">{{$sup_category->name}}</h5>
                     </div>

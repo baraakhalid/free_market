@@ -86,6 +86,20 @@ return [
     'create_sup_category'=>'Create Sub Category',
     'edit_sup_category'=>'Edit Sub Category',    
     
+    'Status'=>'Status',
+    'status'=>'Status',
+    'Total'=>'Total',
+    'Order Date'=>'Order Date',
+    'Shopper'=>'Shopper',
+    'Waitting'=>'Waitting',
+    'Delivered'=>'Delivered',
+    'Processing'=>'Processing',
+    'orders'=>'Orders',
+    'subject'=>'Subject',
+    'subcategories'=>'Sub Categories',
+    'sub category'=>'Sub Category',
+
+
 
 
     

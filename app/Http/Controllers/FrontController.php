@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Favorite;
+
 
 use App\Models\SupCategory;
 
@@ -17,8 +19,8 @@ class FrontController extends Controller
      
             $categories = Category::all();
             $latestproducts=Product::orderby('created_at','ASC')->take(3)->get();
-            $product=Product::withcount('favorites')->get();
-            return response()->view('front.parent', ['categories' => $categories ,'latestproducts',$latestproducts,'product'=>$product]);    
+            $products=Product::withcount('favorites')->get();
+            return response()->view('front.parent', ['categories' => $categories ,'latestproducts'=>$latestproducts, 'products'=>$products]);    
 
     }
     public function showproduct(Request $request)

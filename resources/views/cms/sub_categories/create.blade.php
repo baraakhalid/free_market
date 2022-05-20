@@ -46,7 +46,7 @@
                                 <input type="text" class="form-control" id="description" placeholder="{{__('cms.description')}}">
                             </div> --}}
                             <div class="form-group">
-                                <label for="sup_category_image">sup_category Image</label>
+                                <label for="sup_category_image">sub_category Image</label>
                                 <div class="input-group">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="sup_category_image">

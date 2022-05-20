@@ -1,8 +1,8 @@
 @extends('cms.parent')
 
-@section('title',__('cms.categories'))
+@section('title',__('cms.orders'))
 @section('page-lg',__('cms.index'))
-@section('main-pg-md',__('cms.categories'))
+@section('main-pg-md',__('cms.orders'))
 @section('page-md',__('cms.index'))
 
 @section('styles')
@@ -16,7 +16,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">{{__('cms.categories')}}</h3>
+                        <h3 class="card-title">{{__('cms.orders')}}</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -24,55 +24,47 @@
                             <thead>
                                 <tr>
                                     <th style="width: 10px">#</th>
-                                    <th>{{__('cms.image')}}</th>
-                                    <th>{{__('cms.name')}}</th>
-                                    <th>{{__('cms.subcategories')}}</th>
+                                    <th>{{__('cms.Order Date')}}</th>   
+                                    <th  >{{__('cms.Status')}}</th>  
+                               
 
-
-                                    <th>{{__('cms.active')}}</th>
-
-                                    {{-- <th>{{__('cms.description')}}</th> --}}
+                                    <th  >{{__('cms.Total')}}</th>                            
+                          
                                     <th>{{__('cms.created_at')}}</th>
                                     <th>{{__('cms.updated_at')}}</th>
+                            
                                     <th style="width: 40px">{{__('cms.settings')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($categories as $category)
+                                @foreach ($orders as $order)
                                 <tr>
-                                    <td>{{$loop->index+1}}</td>
-                                    <td>
-                                        <img height="80" src="{{Storage::url($category->image ?? '')}}" />
-                                    </td>
-                                 
-                                    <td>{{$category->name}}</td>
-                                    {{-- <td>{{$category->supcategories_count}}</td> --}}
-                                    <td><span class="badge bg-info">{{$category->supcategories_count}}</span>
-                                    </td>
-                                     <td><span class="badge @if($category->active) bg-success @else bg-danger @endif">{{$category->active_status}}</span>
-                                    </td>
+                                    <td>Order{{$loop->index+1}}</td>
+                                   
+                                    <td>{{$order->date}}</td>
+                                    <td><span class="status text-success">&bull;</span> {{$order->status}}</td>
 
-                                    {{-- <td>{{$category->description}}</td> --}}
-                                    <td>{{$category->created_at->diffForHumans()}}</td>
-                                    <td>{{$category->updated_at->format('Y-m-d H:ia')}}</td>
+                                    <td>{{$order->total}}$</td>
+                                    
+                                    <td>{{$order->created_at}}</td>
+                                    <td>{{$order->updated_at}}</td>
+                                   
                                     <td>
-                                        @canany('Update-Category','Delete-Category')
                                         <div class="btn-group">
-                                            @can('Update-Category')
+                                            {{-- @can('Update-Order') --}}
 
-                                            <a href="{{route('categories.edit',$category->id)}}" class="btn btn-warning">
+                                            <a href="{{route('order.edit',$order->id)}}" class="btn btn-warning">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            @endcan
-                                            @can('Delete-Category')
-                                            <a href="#" onclick="confirmDelete('{{$category->id}}', this)"
+                                            {{-- @endcan --}}
+
+                                            {{-- @can('Delete-Order') --}}
+                                            <a href="#" onclick="confirmDelete('{{$order->id}}', this)"
                                                 class="btn btn-danger">
                                                 <i class="fas fa-trash"></i>
                                             </a>
-                                            @endcan
-
+                                            {{-- @endcan --}}
                                         </div>
-                                        @endcanany
                                     </td>
                                 </tr>
                                 @endforeach
@@ -112,7 +104,7 @@
     }
 
     function performDelete(id, reference) {
-        axios.delete('/cms/admin/categories/'+id)
+        axios.delete('/cms/user/orders/'+id)
         .then(function (response) {
             console.log(response);
             // toastr.success(response.data.message);
@@ -125,7 +117,6 @@
             showMessage(error.response.data);
         });
     }
-
     function showMessage(data) {
         Swal.fire(
             data.title,
@@ -133,5 +124,23 @@
             data.icon
         );
     }
+ function updateOrderStatus(id){
+   
+    axios.put('/cms/admin/order/{{$order->id}}', {
+        status: document.getElementById('status').value,
+            
+
+        })
+        .then(function (response) {
+            console.log(response);
+            toastr.success(response.data.message);
+            window.location.href = '/cms/admin/order';
+        })
+        .catch(function (error) {
+            console.log(error.response);
+            toastr.error(error.response.data.message);
+        });
+ }
+
 </script>
 @endsection

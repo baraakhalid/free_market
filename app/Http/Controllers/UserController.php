@@ -52,11 +52,10 @@ class UserController extends Controller
             $user = new User();
             $user->name = $request->input('name');
             $user->email = $request->input('email');
-            $user->password = Hash::make('12345');
+            $user->password = Hash::make('12345');                                                                      
             $user->mobile = $request->input('mobile');
             $user->gender = $request->input('gender');
 
-            // $user->password = hash::make(12345);
 
             $isSaved = $user->save();
             if ($isSaved) {

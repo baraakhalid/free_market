@@ -49,8 +49,8 @@
                                     <td>{{$product->description}}</td>
 
                                     <td>{{$product->price}}</td>
-                                    <td>{{$product->created_at}}</td>
-                                    <td>{{$product->updated_at}}</td>
+                                    <td>{{$product->created_at->diffForHumans()}}</td>
+                                    <td>{{$product->updated_at->format('Y-m-d H:ia')}}</td>
                                     <td>
                                         @canany('Update-Product','Delete-Product')
 

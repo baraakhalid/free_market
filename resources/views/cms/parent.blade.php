@@ -7,7 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Resturant | @yield('title')</title>
+  <title>Shopper | @yield('title')</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -70,22 +70,29 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
+            
             <div class="media">
-              <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+              <img src="{{asset('cms/dist/img/user1-128x128.jpg')}}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
-                  Brad Diesel
-                  <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                 <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
                 </h3>
-                <p class="text-sm">Call me whenever you can...</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                <h3  style="font-weight: bold;" class="dropdown-item-title">
+                  Subject:
+                </h3>
+                <h3 class="dropdown-item-title">
+                </h3>
+                <h3  style="font-weight: bold;" class="dropdown-item-title">
+                  Message:
+                </h3>
+                <p class="text-sm"></p>
+                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> </p>
               </div>
             </div>
             <!-- Message End -->
           </a>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
+          {{-- <a href="#" class="dropdown-item">
             <div class="media">
               <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
@@ -97,11 +104,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
               </div>
             </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
+          </a> --}}
+          {{-- <div class="dropdown-divider"></div> --}}
+          {{-- <a href="#" class="dropdown-item">
             <div class="media">
               <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
@@ -113,10 +118,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
               </div>
             </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+          </a> --}}
+          {{-- <div class="dropdown-divider"></div> --}}
+          <a href="{{route('contacts.index')}}" class="dropdown-item dropdown-footer">See All Messages</a>
         </div>
       </li>
       <!-- Notifications Dropdown Menu -->
@@ -136,17 +140,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </a>
           <div class="dropdown-divider"></div>
           @endforeach
-{{-- 
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-file mr-2"></i> 3 new reports
-            <span class="float-right text-muted text-sm">2 days</span>
-          </a>
-          <div class="dropdown-divider"></div> --}}
+
           <a href="{{route('notifications.index')}}" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
       </li>
@@ -453,8 +447,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </li>
 
             @endcanany
+           
             @endcanany
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon far fa-envelope"></i>
+                <p>
+                  {{__('cms.orders')}}
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview" style="display: none;">
+                <li class="nav-item">
+                  <a href="{{route('order.index')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>{{__('cms.index')}}</p>
+                  </a>
+                </li>
+             
+               
 
+                
+              </ul>
+            </li>
+          
             <li class="nav-header">{{__('cms.settings')}}</li>
             <li class="nav-item">
               <a href="{{route('password.edit')}}" class="nav-link">

@@ -17,10 +17,12 @@ class ContactController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // $categories = Category::all();
-        // $latestproducts=Product::orderby('created_at','ASC')->take(3)->get(); 
+       
+        $contacts = Contact::all();
+
+        return response()->view('cms.notifications.message', ['contacts' => $contacts]);
     }
 
     /**
@@ -29,6 +31,16 @@ class ContactController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
+    {
+          }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
         $validator = Validator($request->all(), [
             'name' => 'required|string|min:3',
@@ -48,10 +60,10 @@ class ContactController extends Controller
             $isSaved = $contact->save();
             if ($isSaved)
                
-            //     $admins=Admin::all();
-            //     foreach ($admins as $admin) {
-            //         $admin->notify(new NewMessageNotification($contact));
-            //     }
+                // $admins=Admin::all();
+                // foreach ($admins as $admin) {
+                //     $admin->notify(new NewMessageNotification($contact));
+                // }
                  return response()->json(
                 ['message' => $isSaved ? 'Saved successfully' : 'Save failed!'],
                 $isSaved ? Response::HTTP_CREATED : Response::HTTP_BAD_REQUEST
@@ -61,18 +73,7 @@ class ContactController extends Controller
                 ['message' => $validator->getMessageBag()->first()],
                 Response::HTTP_BAD_REQUEST,
             );
-        }    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        }     }
 
     /**
      * Display the specified resource.
@@ -116,6 +117,16 @@ class ContactController extends Controller
      */
     public function destroy(Contact $contact)
     {
-        //
-    }
+        {
+            $deleted = $contact->delete();
+           
+            return response()->json(
+                [
+                    'title' => $deleted ? 'Deleted!' : 'Delete Failed!',
+                    'text' => $deleted ? 'Message deleted successfully' : 'Message deleting failed!',
+                    'icon' => $deleted ? 'success' : 'error'
+                ],
+                $deleted ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST
+            );
+        }    }
 }

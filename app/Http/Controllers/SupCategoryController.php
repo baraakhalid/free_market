@@ -69,7 +69,7 @@ class SupCategoryController extends Controller
     {
          $validator = Validator($request->all(), [
             'category_id'=>'required|numeric|exists:categories,id',
-            'name' => 'required|string|min:3',
+            'name' => 'required|string|min:2',
             'active'=> 'required | boolean',
             'image' => 'required|image|mimes:png,jpg,jpeg',
 

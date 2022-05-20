@@ -40,7 +40,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>{{__('cms.sup_category')}}</label>
+                                <label>{{__('cms.sub category')}}</label>
                                 <select class="form-control" id="sup_category_id">
                                     {{-- @foreach ($sup_categories as $sup_category)
                                     <option value="{{$sup_category->id}}">{{$sup_category->name}}</option>

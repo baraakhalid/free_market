@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
@@ -19,10 +20,13 @@ use App\Http\Controllers\CityController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\OrderController;
 use App\Mail\VendorWelcomeEmail;
 use App\Models\City;
+use App\Models\OrderProduct;
 use App\Models\Vendor;
 
 /*
@@ -36,6 +40,13 @@ use App\Models\Vendor;
 |
 */
 // ->middleware(['auth:admin , user ,vendor'])
+
+
+
+
+
+
+
 Route::prefix('cms/')->middleware('guest:admin,vendor,user')->group(function () {
     Route::get('{guard}/login', [AuthController::class, 'showLoginView'])->name('cms.login');
     Route::post('login', [AuthController::class, 'login']);
@@ -57,6 +68,8 @@ Route::prefix('cms/admin')->middleware(['auth:admin,vendor,user', 'verified'])->
     Route::resource('sup_categories', SupCategoryController::class);
     Route::resource('products', ProductController::class);
     Route::resource('cities', CityController::class);
+    Route::resource('order', OrderController::class);
+
     Route::get('logout', [AuthController::class, 'logout'])->name('cms.logout');
 
 });
@@ -84,7 +97,10 @@ Route::prefix('cms/admin')->middleware(['auth:admin,vendor'])->group(function ()
 // Route::get('baraa', function () {
 //     return view('front.parent');
 // });
-  
+
+// route::prefix('cms/user')->middleware(['verified:vendor'])->group(function () {
+//     Route::post('vendor', [VendorController::class,'store']);
+// });
 
 route::prefix('cms/user')->group(function () {
     Route::post('user', [UserController::class,'store']);
@@ -95,6 +111,7 @@ route::prefix('cms/user')->group(function () {
     route::get('categories' , [CategoryController::class,'index'])->name('front.categories');
     route::get('supcategories' , [SupCategoryController::class,'index'])->name('front.supcategories');
     route::view('contact' , 'front.contact')->name('front.contact');
+    Route::resource('contacts',ContactController::class);
 
 
    Route::get('logout', [AuthController::class, 'logout'])->name('cms.logout');
@@ -102,7 +119,15 @@ route::prefix('cms/user')->group(function () {
 });
 Route::prefix('cms/user')->middleware('auth:user')->group(function () {
     Route::resource('favorites', FavoriteController::class);
-    Route::resource('contacts',ContactController::class);
+    Route::resource('carts', CartController::class);
+    Route::resource('addresses', AddressController::class);
+    Route::resource('orders', OrderController::class);
+    Route::resource('orderproducts', OrderProductController::class);
+
+
+
+
+
 
     // Route::get('notifications', [NotificationController::class, 'index'])->name('notifications.index');
     // Route::delete('notifications/{notification}', [NotificationController::class, 'destroy'])->name('notifications.destroy'); 

@@ -3,12 +3,12 @@
 
 
 <style>
-    .product-wish{
+    /* .product-wish{
         font-size: 30px;
         
-    }
-    /* .text-primary:hover {
-    color: #a08582 !important;} */
+    } */
+    .text-primary:hover {
+    color: #a08582 !important;}
 
     .img-fluid  {
         height: 150px;
@@ -39,45 +39,25 @@
                         </div>
                     </div>
                     <div class="card-footer d-flex justify-content-between bg-light border">
-                        <a href="" class="btn btn-sm text-dark p-0">{{$product->vendor->mobile}}</a>
+                        {{-- <a href="" class="btn btn-sm text-dark p-0">{{$product->vendor->mobile}}</a> --}}
                         @if (Auth::guard('user')->check())
-                        <form>
-                        <input onclick="performFavorite({{$product->id }})" type="button" class="btn btn-danger" value="Add To WishList" 
-                         @if($product->is_favorite)
-                              style= "color: #a08582"
-                              hover="color: #a08582 !important"
-                            @endif
-                        >
-                        </form>
-                        {{-- <input onclick="performFavoriteStore({{$product->id }})"  > <a href="#"  class="product-wish" class="btn btn-sm text-dark p-0"><i  class="fas fa-heart text-primary mr-1"
-                             @if($product->is_favorite)
-                              style= "color: #a08582"
-                              hover="color: #a08582 !important"
-                              @endif
-                            ></i></a> --}}
-                        @else
-                        <a href="{{route('cms.login','user')}}"  class="fas fa-heart"></a>
-                        @endif
-                    </div>
-                      
-                 {{-- <div class="card-footer d-flex justify-content-between bg-light border">
-                    <a href="" class="btn btn-sm text-dark p-0">{{$product->vendor->mobile}}</a>
 
-                     @foreach ($products as $product )
-
-                     @if (Auth::guard('user')->check())
-                     <a href="#" class="product-wish" class="btn btn-sm text-dark p-0" onclick="performFavorite({{$product->id}})" class="fas fa-heart"
-                        @if($product->is_favorite)
-                        style="background : var(--green)";
-                        color: #fff;
-                        @endif
-                    >
-                     </a>
-                     @else<a href="{{route('cms.login','user')}}" class="fas fa-heart"></a>
-                     @endif
-
+                        <a  onclick="performCartStore({{$product->id }} ,{{$product->price}})"  class="btn btn-sm text-dark p-0">
+                            <i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                        <a onclick="performFavorite({{$product->id }})"class="product-wish" class="btn btn-sm text-dark p-0" 
+                            @if($product->is_favorite)
+                            style= "color: #a08582"
+                            hover="color: #fff !important"
+                          @endif><i  class="fas fa-heart text-primary mr-1" ></i>
                          
-                     @endforeach --}}
+                        </a>
+                        @else
+                        <a href="{{route('cms.login','user')}}"  > <i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+
+                        <a href="{{route('cms.login','user')}}"  class="fas fa-heart text-primary mr-1"></a>
+
+                        @endif 
+                    </div> 
 
 
                    
@@ -91,6 +71,25 @@
 
 @endsection
 <script src="https://unpkg.com/axios@0.27.2/dist/axios.min.js"></script>
+<script >
+    function performCartStore(id ,price ) {
+        axios.post('/cms/user/carts',{
+              product_id:  id,
+              quantity :1,
+              price:price,
+    
+        })
+        .then(function (response) {
+            console.log(response);
+            toastr.success(response.data.message);
+            // window.location.href = '/rest/index';
+        })
+        .catch(function (error) {
+            console.log(error.response);
+            toastr.error(error.response.data.message);
+        });
+    }
+    </script>
 <script>
 function performFavorite(id) {
     axios.post ('/cms/user/favorites',{

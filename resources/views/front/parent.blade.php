@@ -63,9 +63,11 @@
 
             <a href="{{route('favorites.index')}}" class="btn border">
                 <i class="fas fa-heart text-primary"></i>
-                <span class="badge"></span>
+                
+                <span class="badge">0</span>
+                {{-- {{$products->favorites_count}} --}}
             </a>
-            <a href="" class="btn border">
+            <a href="{{route('carts.index')}}" class="btn border">
                 <i class="fas fa-shopping-cart text-primary"></i>
                 <span class="badge">0</span>
             </a>
@@ -105,19 +107,13 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
-                        <a href="{{route('front.index')}}" class="nav-item nav-link active">Home</a>
-                         <a href="{{route('front.categories')}}" class="nav-item nav-link">Categories</a> 
-                        <a href="{{route('front.supcategories')}}" class="nav-item nav-link">Sub Categories</a> 
-                        <a href="{{route('front.products')}}" class="nav-item nav-link">Products</a> 
-
-                        <!-- <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
-                            <div class="dropdown-menu rounded-0 m-0">
-                                <a href="cart.html" class="dropdown-item">Shopping Cart</a>
-                                <a href="checkout.html" class="dropdown-item">Checkout</a>
-                            </div>
-                        </div> -->
+                        <a href="{{route('front.index')}}" class="nav-item nav-link ">Home</a>
+                         <a href="{{route('front.categories')}}" class="nav-item nav-link ">Categories</a> 
+                        <a href="{{route('front.supcategories')}}" class="nav-item nav-link ">Sub Categories</a> 
+                        <a href="{{route('front.products')}}" class="nav-item nav-link">Products</a>
                         <a href="{{route('front.contact')}}" class="nav-item nav-link">Contact</a>
+                        <a href="{{route('orders.index')}}"class="nav-item nav-link">Order</a> 
+
                     </div>
                     <div class="navbar-nav ml-auto py-0">
                         {{-- <a href="{{route('cms.login' ,'user')}}" class="nav-item nav-link">Login</a> --}}
@@ -156,7 +152,7 @@
                         
                     
                     <div class="carousel-item active" style="height: 410px;">
-                        <img class="img-fluid" src="{{Storage::url($latestproduct->image ?? '')}}" alt="Image">
+                        <img class="img-fluid" src="{{asset('front/img/baraa.jpg')}}" alt="Image">
                         <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                             <div class="p-3" style="max-width: 700px;">
                                 <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>

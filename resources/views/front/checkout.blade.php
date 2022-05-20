@@ -14,7 +14,6 @@
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
-    <link rel="stylesheet" href="{{asset('cms/plugins/toastr/toastr.min.css')}}">
 
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -24,22 +23,21 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{asset('front/css/style.css')}}" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('cms/plugins/toastr/toastr.min.css')}}">
-
-    <style>
-        .text-primary {
-        color: #D19C97 !important;
-    }
-    .product-wish{
-        font-size: 30px;
-        
-    }
-    </style>
 </head>
 
 <body>
-  
-            {{-- <div class="col-lg-6 col-6 text-left">
+    <!-- Topbar Start -->
+    <div class="container-fluid">
+    
+         
+        </div>
+        <div class="row align-items-center py-3 px-xl-5">
+            <div class="col-lg-3 d-none d-lg-block">
+                <a href="" class="text-decoration-none">
+                    <h1 class="m-0 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border px-3 mr-1">E</span>Shopper</h1>
+                </a>
+            </div>
+            <div class="col-lg-6 col-6 text-left">
                 <form action="">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Search for products">
@@ -50,47 +48,17 @@
                         </div>
                     </div>
                 </form>
-            </div> --}}
-            <div class="container-fluid">
-                <div class="row align-items-center py-3 px-xl-5">
-                    <div class="col-lg-3 d-none d-lg-block">
-                        <a href="" class="text-decoration-none">
-                            <h1 class="m-0 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border px-3 mr-1">E</span>Shopper</h1>
-                        </a>
-                    </div>
-                    <div class="col-lg-6 col-6 text-left">
-                        <form action="">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search for products">
-                                <div class="input-group-append">
-                                    <span class="input-group-text bg-transparent text-primary">
-                                        <i class="fa fa-search"></i>
-                                    </span>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-            
-                        <div class="col-lg-3 col-6 text-right">
-            
-                        <a href="{{route('favorites.index')}}" class="btn border">
-                            <i class="fas fa-heart text-primary"></i>
-                            <span class="badge"></span>
-                        </a>
-                        <a href="" class="btn border">
-                            <i class="fas fa-shopping-cart text-primary"></i>
-                            <span class="badge">0</span>
-                        </a>
-                       </div>
-            
-            
-            
-                   
-            
-                </div>
             </div>
-            
-            
+            <div class="col-lg-3 col-6 text-right">
+                <a href="{{route('favorites.index')}}"  class="btn border">
+                    <i class="fas fa-heart text-primary"></i>
+                    <span class="badge">0</span>
+                </a>
+                <a href="{{route('carts.index')}}" class="btn border">
+                    <i class="fas fa-shopping-cart text-primary"></i>
+                    <span class="badge">0</span>
+                </a>
+            </div>
         </div>
     </div>
     <!-- Topbar End -->
@@ -140,13 +108,13 @@
                             <a href="shop.html" class="nav-item nav-link">Shop</a>
                             <a href="detail.html" class="nav-item nav-link">Shop Detail</a>
                             <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
+                                <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">Pages</a>
                                 <div class="dropdown-menu rounded-0 m-0">
                                     <a href="cart.html" class="dropdown-item">Shopping Cart</a>
                                     <a href="checkout.html" class="dropdown-item">Checkout</a>
                                 </div>
                             </div>
-                            <a href="contact.html" class="nav-item nav-link active">Contact</a>
+                            <a href="contact.html" class="nav-item nav-link">Contact</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0">
                             <a href="" class="nav-item nav-link">Login</a>
@@ -163,78 +131,134 @@
     <!-- Page Header Start -->
     <div class="container-fluid bg-secondary mb-5">
         <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
-            <h1 class="font-weight-semi-bold text-uppercase mb-3">Contact Us</h1>
+            <h1 class="font-weight-semi-bold text-uppercase mb-3">Checkout</h1>
             <div class="d-inline-flex">
                 <p class="m-0"><a href="">Home</a></p>
                 <p class="m-0 px-2">-</p>
-                <p class="m-0">Contact</p>
+                <p class="m-0">Checkout</p>
             </div>
         </div>
     </div>
     <!-- Page Header End -->
 
 
-    <!-- Contact Start -->
+    <!-- Checkout Start -->
     <div class="container-fluid pt-5">
-        <div class="text-center mb-4">
-            <h2 class="section-title px-5"><span class="px-2">Contact For Any Queries</span></h2>
-        </div>
         <div class="row px-xl-5">
-            <div class="col-lg-7 mb-5">
-                <div class="contact-form">
-                    <div id="success"></div>
-                    <form  id="contact-form'" novalidate="novalidate">
-                        <div class="control-group">
-                            <input type="text" class="form-control" id="name" placeholder="Your Name"
-                                required="required" data-validation-required-message="Please enter your name" />
-                            <p class="help-block text-danger"></p>
+            <div class="col-lg-8">
+                <div class="mb-4">
+
+                    <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
+
+
+                    
+                    <div class="row">
+                        <table class="table table-bordered">
+                            <tr><td><strong>DELEVERY ADDRESSES</strong> </td></tr>
+                            <form >
+                            @foreach ($addresses as $address )
+                                
+                            <tr>
+                                <td>
+                                    <div class="control-group" style="float: left; margin-top:-2px; margin-right:5px;">
+                                    
+                                       <input type="radio" id="{{$address->id}}" name="address_id" value="{{$address->id}}">
+                                        
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                          {{$address->name}} ,{{$address->area}} ,{{$address->building}} 
+                                          ,{{$address->street}} ,{{$address->flate_num}}
+                                        </label>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </table>
+    
+                        <div class="col-md-12 form-group">
+                           
                         </div>
-                        <div class="control-group">
-                            <input type="email" class="form-control" id="email" placeholder="Your Email"
-                                required="required" data-validation-required-message="Please enter your email" />
-                            <p class="help-block text-danger"></p>
+                        <div class="col-md-12 form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="shipto">
+                                <label class="custom-control-label" for="shipto"  data-toggle="collapse" data-target="#shipping-address">Ship to different address</label>
+                            </div>
                         </div>
-                        <div class="control-group">
-                            <input type="text" class="form-control" id="subject" placeholder="Subject"
-                                required="required" data-validation-required-message="Please enter a subject" />
-                            <p class="help-block text-danger"></p>
+                    </div>
+                 
+
+                </div>
+                <div class="collapse mb-4" id="shipping-address">
+                    <h4 class="font-weight-semi-bold mb-4">Shipping Address</h4>
+                    <form id="save-address">
+
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label>City</label>
+                            <input id="name" class="form-control" type="text" placeholder="city">
                         </div>
-                        <div class="control-group">
-                            <textarea class="form-control" rows="6" id="message" placeholder="Message"
-                                required="required"
-                                data-validation-required-message="Please enter your message"></textarea>
-                            <p class="help-block text-danger"></p>
+                        <div class="col-md-6 form-group">
+                            <label>Area</label>
+                            <input id="area" class="form-control" type="text" placeholder=" area">
                         </div>
-                        <div>
-                            <button onclick="performStoreContact()" class="btn btn-primary py-2 px-4" type="button" id="sendMessageButton">Send
-                                Message</button>
+                        <div class="col-md-6 form-group">
+                            <label>Street</label>
+                            <input id="street" class="form-control" type="text" placeholder="street ">
                         </div>
+                        <div class="col-md-6 form-group">
+                            <label>Building</label>
+                            <input id="building" class="form-control" type="text" placeholder=" ">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Flat Num</label>
+                            <input id="flate_num" class="form-control" type="text" placeholder="123">
+                        </div>
+                        <a style="width:200px;" class="btn btn-block btn-primary my-3 py-3" type="button" onclick="performSaveAddress()" >Save Address</a>
+
                     </form>
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-5 mb-5">
-                <h5 class="font-weight-semi-bold mb-3">Get In Touch</h5>
-                <p>Justo sed diam ut sed amet duo amet lorem amet stet sea ipsum, sed duo amet et. Est elitr dolor elitr erat sit sit. Dolor diam et erat clita ipsum justo sed.</p>
-                <div class="d-flex flex-column mb-3">
-                    <h5 class="font-weight-semi-bold mb-3">Store 1</h5>
-                    <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
-                    <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
-                    <p class="mb-2"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p>
-                </div>
-                <div class="d-flex flex-column">
-                    <h5 class="font-weight-semi-bold mb-3">Store 2</h5>
-                    <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
-                    <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
-                    <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p>
+            <div class="col-lg-4">
+                <div class="card border-secondary mb-5">
+                    <div class="card-header bg-secondary border-0">
+                        <h4 class="font-weight-semi-bold m-0">Order Total</h4>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="font-weight-medium mb-3">Products</h5>
+                        @php $total=0; @endphp
+                        @foreach ($carts as  $cart)
+                            
+                        <div class="d-flex justify-content-between">
+                            <p>{{$cart->product->name}} {{$cart->quantity}}</p>
+                            <p>${{$cart->price}}</p>
+                        </div>
+                        @php $total+=$cart->quantity * $cart->price; @endphp
+                        @endforeach
+                        <div class="card-footer border-secondary bg-transparent">
+                            <div class="d-flex justify-content-between mt-2">
+                                <h5 class="font-weight-bold">Total</h5>
+                                <h5 class="font-weight-bold">${{$total}}</h5>
+                            </div>
+                        </div>
+                   </div>
+                <div class="card border-secondary mb-5">
+                
+                    <div class="card-footer border-secondary bg-transparent">
+                        <button onclick="performPlaceOrder({{$total}})" class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Place Order</button>
+                    </div>
+                </form>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Contact End -->
+    <!-- Checkout End -->
 
 
     <!-- Footer Start -->
     <div class="container-fluid bg-secondary text-dark mt-5 pt-5">
+        
         <div class="row px-xl-5 pt-5">
             <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
                 <a href="" class="text-decoration-none">
@@ -319,33 +343,61 @@
 
     <!-- Template Javascript -->
     <script src="{{asset('front/js/main.js')}}"></script>
-    <script src="https://unpkg.com/axios@0.27.2/dist/axios.min.js"></script>
-    <script src="{{asset('cms/plugins/toastr/toastr.min.js')}}"></script>
-
-
-    <script>
-
-        function performStoreContact() {
-              axios.post('/cms/user/contacts', {
-                    name: document.getElementById('name').value,
-                    email: document.getElementById('email').value,
-                    subject: document.getElementById('subject').value,
-                    message: document.getElementById('message').value,
-        
-                })
-              .then(function (response) {
-                    console.log(response);
-                    toastr.success(response.data.message);
-                    document.getElementById('contact-form').reset();
-        
-                })
-                .catch(function (error) {
-                    console.log(error.response);
-                    toastr.error(error.response.data.message);
-                });
-        
-            }
-         </script>
 </body>
 
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="{{asset('cms/plugins/jquery/jquery.min.js')}}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{asset('cms/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- AdminLTE App -->
+<script src="{{asset('cms/dist/js/adminlte.min.js')}}"></script>
+<script src="https://unpkg.com/axios@0.27.2/dist/axios.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{{asset('cms/plugins/toastr/toastr.min.js')}}"></script>
+
+<script>
+
+
+function performPlaceOrder(total) {
+        axios.post('/cms/user/orders', {
+            total:total,
+            address_id:  document.querySelector('input[type=radio][name=address_id]:checked').value,
+       })
+        .then(function (response) {
+            console.log(response);
+            toastr.success(response.data.message);
+            window.location.href = '/cms/user/index';
+        })
+        .catch(function (error) {
+            console.log(error.response);
+            toastr.error(error.response.data.message);
+        });
+    }
+
+
+
+
+
+function performSaveAddress() {
+        axios.post('/cms/user/addresses', {
+			name: document.getElementById('name').value,
+            area: document.getElementById('area').value,
+            street: document.getElementById('street').value,
+            building: document.getElementById('building').value,
+            flate_num: document.getElementById('flate_num').value,
+       
+       })
+        .then(function (response) {
+            console.log(response);
+            toastr.success(response.data.message);
+			document.getElementById('save-address').reset();
+            window.location.href = '/cms/user/addresses';
+        })
+        .catch(function (error) {
+            console.log(error.response);
+            toastr.error(error.response.data.message);
+        });
+    }
+</script>
 </html>

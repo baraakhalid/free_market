@@ -55,8 +55,8 @@
                                     <td>{{$vendor->email}}</td>  
                                     <td>{{$vendor->city->name}}</td>                            
                           
-                                    <td>{{$vendor->created_at}}</td>
-                                    <td>{{$vendor->updated_at}}</td>
+                                    <td>{{$vendor->created_at->diffForHumans()}}</td>
+                                    <td>{{$vendor->updated_at->format('Y-m-d H:ia')}}</td>
                                     <td>
                                         @canany('Update-vendor','Delete-vedor')
 

@@ -42,8 +42,8 @@
                                     <td>{{$user->email}}</td>
                                     <th>{{$user->mobile}}</th>
                                     <td>{{$user->gender}}</td>   
-                                    <td>{{$user->created_at}}</td>
-                                    <td>{{$user->updated_at}}</td>
+                                    <td>{{$user->created_at->diffForHumans()}}</td>
+                                    <td>{{$user->updated_at->format('Y-m-d H:ia')}}</td>
                                     <td>
                                         @canany('Update-User','Delete-User')
                                         <div class="btn-group">
